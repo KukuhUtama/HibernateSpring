@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Inheritance;
@@ -44,7 +45,8 @@ public class BankAccountEntity extends BaseEntity implements Serializable{
 	private int amount;
 	
 	/** The customer. */
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="customer_id")
 	private CustomerEntity customer;
 	
 	/**
