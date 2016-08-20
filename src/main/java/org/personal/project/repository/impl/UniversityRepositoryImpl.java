@@ -39,5 +39,17 @@ public class UniversityRepositoryImpl extends AbstractRepository implements Univ
 			ex.printStackTrace();
 		}
 	}
+    
+	/* (non-Javadoc)
+	 * @see org.personal.project.repository.UniversityRepository#updateUniversity(org.personal.project.entity.UniversityEntity)
+	 */
+	@Transactional
+	public void updateUniversity(UniversityEntity university) {
+		try {
+			update(university);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

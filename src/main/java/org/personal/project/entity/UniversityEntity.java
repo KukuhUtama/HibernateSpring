@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class UniversityEntity extends BaseEntity implements Serializable {
 	/** The id. */
 	@Id
 	@Column(name = "id")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	/** The name. */
@@ -38,7 +39,7 @@ public class UniversityEntity extends BaseEntity implements Serializable {
 	private String address;
 
 	/** The students. */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "university_id")
 	private List<StudentEntity> students;
 

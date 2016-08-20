@@ -90,13 +90,14 @@ public class App {
         secondStudent = new StudentEntity("IF2", "Heski", "Putri");
         students.add(firstStudent);
         students.add(secondStudent);
-        university = new UniversityEntity("IT Telkomed", "Bandung");
+        university = new UniversityEntity("IT Telkom", "Bandung");
         university.setStudents(students);
-        universityRepository.saveUniversity(university);
+        university = universityRepository.saveUniversity(university);
+        System.out.println("Student Number: "+university.getStudents().size());
         List<StudentEntity> allStudent= university.getStudents();
-        university.setStudents(allStudent.subList(0,1));
-        universityRepository.saveUniversity(university);
-        
+        university.setStudents(allStudent.subList(0, 1));
+        universityRepository.updateUniversity(university);
+        System.out.println("Student Number: "+university.getStudents().size());
         
 	}
 }

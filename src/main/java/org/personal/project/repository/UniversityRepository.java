@@ -21,4 +21,11 @@ public interface UniversityRepository {
 	 * @param university the university
 	 */
 	public void deleteUniversity(UniversityEntity university);
+	
+	/**
+	 * Update university.
+	 *
+	 * @param university the university
+	 */
+	public void updateUniversity(UniversityEntity university);
 }
