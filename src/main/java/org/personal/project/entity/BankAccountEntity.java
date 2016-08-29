@@ -45,7 +45,6 @@ public class BankAccountEntity extends BaseEntity implements Serializable{
 	private int amount;
 	
 	/** The customer. */
-	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private CustomerEntity customer;
 	

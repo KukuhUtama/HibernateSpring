@@ -15,7 +15,7 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 	/** The customer. */
 	private CustomerEntity customer;
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see org.personal.project.repository.CustomerRepository#saveCustomer(org.personal.project.entity.CustomerEntity)
 	 */
 	@Transactional
@@ -28,7 +28,7 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 		return customer;
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see org.personal.project.repository.CustomerRepository#deleteCustomer(org.personal.project.entity.CustomerEntity)
 	 */
 	@Transactional

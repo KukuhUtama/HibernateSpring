@@ -67,13 +67,14 @@ public abstract class AbstractRepository {
 		session = getSession();
 		session.delete(entity);
 	}
-	
+
 	/**
 	 * Update.
 	 *
-	 * @param entity the entity
+	 * @param entity
+	 *            the entity
 	 */
-	public void update(Object entity){
+	public void update(Object entity) {
 		session = getSession();
 		session.merge(entity);
 	}

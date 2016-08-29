@@ -15,7 +15,7 @@ public class StudentRepositoryImpl extends AbstractRepository implements Student
 	/** The student. */
 	private StudentEntity student;
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.personal.project.repository.StudentRepository#saveStudent(org.
@@ -31,7 +31,7 @@ public class StudentRepositoryImpl extends AbstractRepository implements Student
 		return student;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org.personal.project.repository.StudentRepository#deleteStudent(org.
