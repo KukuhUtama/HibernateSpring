@@ -3,7 +3,6 @@ package org.personal.project.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
 /*
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;*/
@@ -42,7 +40,7 @@ public class DepartmentEntity extends BaseEntity implements Serializable {
 	private String departmentName;
 	
 	/** The lecturers. mappedBy = "department",*/
-	@OneToMany(mappedBy="department", cascade= CascadeType.ALL)
+	@OneToMany(mappedBy="department", cascade= CascadeType.ALL, fetch= FetchType.EAGER, orphanRemoval=true)
     private List<LecturerEntity> lecturers = new ArrayList<LecturerEntity>();
     
 	/**
@@ -89,11 +87,21 @@ public class DepartmentEntity extends BaseEntity implements Serializable {
 		this.departmentName = departmentName;
 	}
     
+	/**
+	 * Sets the lecturers.
+	 *
+	 * @param lecturers the new lecturers
+	 */
 	public void setLecturers(List<LecturerEntity> lecturers) {
 		this.lecturers = lecturers;
 	}
 	
 
+	/**
+	 * Gets the lecturers.
+	 *
+	 * @return the lecturers
+	 */
 	public List<LecturerEntity> getLecturers() {
 		return lecturers;
 	}

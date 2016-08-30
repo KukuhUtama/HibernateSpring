@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name ="customer")
 public class CustomerEntity extends BaseEntity implements Serializable{
    
+	private static final long serialVersionUID = 4893529398052956834L;
+
 	/** The id. */
 	@Id
 	@Column(name="id")

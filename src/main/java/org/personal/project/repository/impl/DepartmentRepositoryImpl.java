@@ -51,17 +51,35 @@ public class DepartmentRepositoryImpl extends AbstractRepository implements Depa
 		}
 	}
 	
-	/** (non-Javadoc)
+	/**
+	 *  (non-Javadoc).
+	 *
+	 * @param id the id
+	 * @return the department entity
 	 * @see org.personal.project.repository.DepartmentRepository#loadDepartment(java.io.Serializable)
 	 */
 	@Transactional
 	public DepartmentEntity loadDepartment(Serializable id){
 		try{
-			department = (DepartmentEntity) getSession().load(DepartmentEntity.class, id);
+			department = (DepartmentEntity) getSession().get(DepartmentEntity.class, id);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
 		return department;
 	}
 
+	/**
+	 *  (non-Javadoc).
+	 *
+	 * @param department the department
+	 * @see org.personal.project.repository.DepartmentRepository#updateDepartment(org.personal.project.entity.DepartmentEntity)
+	 */
+	@Transactional
+	public void updateDepartment(DepartmentEntity department){
+		try{
+			update(department);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
 }

@@ -52,8 +52,8 @@ public class App {
 	public static DepartmentRepository departmentRepository;
 	public static LecturerRepository lecturerRepository;
 	public static DepartmentEntity departmentFirst, departmentSecond;
-	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird;
-	public static List<LecturerEntity> lecturers;
+	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth;
+	public static List<LecturerEntity> lecturerList;
 
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-application-context.xml");
@@ -136,26 +136,51 @@ public class App {
 		lecturerFirst = new LecturerEntity("Kukuh Utama");
 		lecturerFirst.setDepartment(departmentFirst);
 		lecturers.add(lecturerFirst);
+
 		lecturerSecond = new LecturerEntity("Shinta Putri");
 		lecturerSecond.setDepartment(departmentFirst);
 		lecturers.add(lecturerSecond);
+
+		lecturerThird = new LecturerEntity("Joko Pri");
+		lecturerThird.setDepartment(departmentFirst);
+		lecturers.add(lecturerThird);
+
 		departmentFirst.setLecturers(lecturers);
 		departmentFirst = departmentRepository.saveDepartment(departmentFirst);
-		
+		lecturerList = departmentFirst.getLecturers();
+		System.out.println("-----One To Many Bidirectional-----");
+		System.out.println("Department First Lecturer Size: " + lecturerList.size());
+
+		departmentFirst.setLecturers(lecturerList.subList(0, 2));
+		departmentRepository.updateDepartment(departmentFirst);
+		System.out.println("-----After Updated Lecturer List-----");
+		departmentFirst = departmentRepository.loadDepartment(departmentFirst.getId());
+		lecturerList = departmentFirst.getLecturers();
+		System.out.println("Department First Lecturer Size: " + lecturerList.size());
+
 		departmentSecond = new DepartmentEntity("Electrical Engineering");
 		departmentSecond = departmentRepository.saveDepartment(departmentSecond);
-		
-		lecturerThird = new LecturerEntity("Wisanggeni Sakti");
-		lecturerThird.setDepartment(departmentSecond);
-		lecturerThird = lecturerRepository.saveLecturer(lecturerThird);
-		
+
+		lecturerFourth = new LecturerEntity("Wisanggeni Sakti");
+		lecturerFourth.setDepartment(departmentSecond);
+		lecturerFourth = lecturerRepository.saveLecturer(lecturerFourth);
+
+		lecturerFifth = new LecturerEntity("Fransisca W");
+		lecturerFifth.setDepartment(departmentSecond);
+		lecturerFifth = lecturerRepository.saveLecturer(lecturerFifth);
+
 		Serializable id = departmentSecond.getId();
 		departmentSecond = departmentRepository.loadDepartment(id);
-		
+		lecturerList = departmentSecond.getLecturers();
+		System.out.println("Department Second Lecturer Size: " + lecturerList.size());
+		lecturerRepository.deleteLecturer(lecturerFifth);
+		departmentSecond = departmentRepository.loadDepartment(id);
+		lecturerList = departmentSecond.getLecturers();
+		System.out.println("-----After Delete One of Lecturer-----");
+		System.out.println("Department Second Lecturer Size: " + lecturerList.size());
+
 		departmentRepository.deleteDepartment(departmentFirst);
 		departmentRepository.deleteDepartment(departmentSecond);
-		
-		
-		
+
 	}
 }

@@ -33,4 +33,12 @@ public interface DepartmentRepository {
 	 * @return the department entity
 	 */
 	public DepartmentEntity loadDepartment(Serializable Id);
+	
+
+	/**
+	 * Update department.
+	 *
+	 * @param department the department
+	 */
+	public void updateDepartment(DepartmentEntity department);
 }
