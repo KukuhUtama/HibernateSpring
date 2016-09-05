@@ -6,13 +6,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.personal.project.entity.AuthorEntity;
 import org.personal.project.entity.BankAccountEntity;
+import org.personal.project.entity.BookEntity;
 import org.personal.project.entity.CustomerEntity;
 import org.personal.project.entity.DepartmentEntity;
 import org.personal.project.entity.LecturerEntity;
 import org.personal.project.entity.StudentEntity;
 import org.personal.project.entity.UniversityEntity;
+import org.personal.project.repository.AuthorRepository;
 import org.personal.project.repository.BankAccountRepository;
+import org.personal.project.repository.BookRepository;
 import org.personal.project.repository.CustomerRepository;
 import org.personal.project.repository.DepartmentRepository;
 import org.personal.project.repository.LecturerRepository;
@@ -55,13 +59,23 @@ public class App {
 	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth;
 	public static List<LecturerEntity> lecturerList;
 
+	/**
+	 * Many to Many Unidirectional AuthorEntity and BookEntity varible
+	 */
+	public static AuthorRepository authorRepository;
+	public static BookRepository bookRepository;
+	public static AuthorEntity firstAuthor, secondAuthor, thirdAuthor;
+	public static BookEntity firstBook, secondBook, thirdBook, fourthBook;
+	public static List<BookEntity> books;
+
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-application-context.xml");
 
-		/*
+		/**
 		 * One to Many Unidirectional CustomerEntity and BankAccoutEntity with
 		 * many side has relationship. Point to emphasize : CascadeType.ALL
 		 */
+
 		bankAccountRepository = ctx.getBean(BankAccountRepository.class);
 		customerRepository = ctx.getBean(CustomerRepository.class);
 
@@ -107,6 +121,7 @@ public class App {
 		 * variable with one side has relationship. Point to emphasize : orphan
 		 * removal with value true
 		 */
+
 		studentRepository = ctx.getBean(StudentRepository.class);
 		universityRepository = ctx.getBean(UniversityRepository.class);
 		List<StudentEntity> students = new ArrayList<StudentEntity>();
@@ -124,9 +139,10 @@ public class App {
 		System.out.println("Student Number: " + university.getStudents().size());
 		universityRepository.deleteUniversity(university);
 
-		/*
+		/**
 		 * One to Many Bidirectional DepartmentEntity and LecturerEntity
 		 */
+
 		departmentRepository = ctx.getBean(DepartmentRepository.class);
 		lecturerRepository = ctx.getBean(LecturerRepository.class);
 
@@ -181,6 +197,31 @@ public class App {
 
 		departmentRepository.deleteDepartment(departmentFirst);
 		departmentRepository.deleteDepartment(departmentSecond);
+
+		/**
+		 * Many to Many Unidirectional AuthorEntity and BookEntity
+		 */
+		bookRepository = ctx.getBean(BookRepository.class);
+		authorRepository = ctx.getBean(AuthorRepository.class);
+		books = new ArrayList<BookEntity>();
+
+		firstAuthor = new AuthorEntity("Kukuh Utama");
+		secondAuthor = new AuthorEntity("Helena Senjaya");
+		thirdAuthor = new AuthorEntity("Fitria Amalia");
+
+		firstBook = new BookEntity("How to program with Java");
+		secondBook = new BookEntity("How to cook Pancake");
+		thirdBook = new BookEntity("How to survice in world");
+
+		firstAuthor.getBooks().add(firstBook);
+		secondAuthor.getBooks().add(secondBook);
+		thirdAuthor.getBooks().add(thirdBook);
+
+		firstAuthor = authorRepository.saveAuthor(firstAuthor);
+		secondAuthor = authorRepository.saveAuthor(secondAuthor);
+		thirdAuthor = authorRepository.saveAuthor(thirdAuthor);
+
+		authorRepository.deleteAuthor(firstAuthor);
 
 	}
 }
