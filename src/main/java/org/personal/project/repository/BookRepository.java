@@ -40,4 +40,11 @@ public interface BookRepository {
 	 * @return the book entity
 	 */
 	public BookEntity findById(int id);
+	
+	/**
+	 * Delete book.
+	 *
+	 * @param book the book
+	 */
+	public void deleteBook(BookEntity book);
 }

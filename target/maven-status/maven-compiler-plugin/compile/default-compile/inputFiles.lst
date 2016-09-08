@@ -14,14 +14,17 @@ E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\reposi
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\UniversityEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\AuthorRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\BookEntity.java
+E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\SubjectRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\CustomerEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\AuthorRepository.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\LecturerRepostoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\UniversityRepository.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\StudentRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\DepartmentEntity.java
+E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\SubjectEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\DepartmentRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\BaseEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\LecturerRepository.java
+E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\SubjectRepository.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\AuthorEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\StudentEntity.java

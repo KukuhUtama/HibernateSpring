@@ -3,6 +3,7 @@ package org.personal.project.ren;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import org.personal.project.entity.CustomerEntity;
 import org.personal.project.entity.DepartmentEntity;
 import org.personal.project.entity.LecturerEntity;
 import org.personal.project.entity.StudentEntity;
+import org.personal.project.entity.SubjectEntity;
 import org.personal.project.entity.UniversityEntity;
 import org.personal.project.repository.AuthorRepository;
 import org.personal.project.repository.BankAccountRepository;
@@ -21,6 +23,7 @@ import org.personal.project.repository.CustomerRepository;
 import org.personal.project.repository.DepartmentRepository;
 import org.personal.project.repository.LecturerRepository;
 import org.personal.project.repository.StudentRepository;
+import org.personal.project.repository.SubjectRepository;
 import org.personal.project.repository.UniversityRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -48,7 +51,7 @@ public class App {
 	public static UniversityRepository universityRepository;
 	public static StudentRepository studentRepository;
 	public static UniversityEntity university;
-	public static StudentEntity firstStudent, secondStudent;
+	public static StudentEntity firstStudent, secondStudent, thirdStudent;
 
 	/**
 	 * One to Many Bidirectional DepartmentEntity and LecturerEntity variable
@@ -68,10 +71,19 @@ public class App {
 	public static BookEntity firstBook, secondBook, thirdBook, fourthBook;
 	public static List<BookEntity> books;
 
+	/**
+	 * Many to Many Bidirectional SubjectEntity and StudentEntity varible.
+	 * SubjectEntity as owner side.
+	 */
+	public static SubjectRepository subjectRepository;
+	public static SubjectEntity firstSubject, secondSubject, thirdSubject;
+	public static List<SubjectEntity> firstSubjects, secondSubjects;
+	public static List<StudentEntity> firstStudents, secondStudents;
+
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-application-context.xml");
 
-		/**
+		/*
 		 * One to Many Unidirectional CustomerEntity and BankAccoutEntity with
 		 * many side has relationship. Point to emphasize : CascadeType.ALL
 		 */
@@ -139,7 +151,7 @@ public class App {
 		System.out.println("Student Number: " + university.getStudents().size());
 		universityRepository.deleteUniversity(university);
 
-		/**
+		/*
 		 * One to Many Bidirectional DepartmentEntity and LecturerEntity
 		 */
 
@@ -198,7 +210,7 @@ public class App {
 		departmentRepository.deleteDepartment(departmentFirst);
 		departmentRepository.deleteDepartment(departmentSecond);
 
-		/**
+		/*
 		 * Many to Many Unidirectional AuthorEntity and BookEntity
 		 */
 		bookRepository = ctx.getBean(BookRepository.class);
@@ -210,9 +222,11 @@ public class App {
 		thirdAuthor = new AuthorEntity("Fitria Amalia");
 
 		firstBook = new BookEntity("How to program with Java");
+		firstBook = bookRepository.saveBook(firstBook);
 		secondBook = new BookEntity("How to cook Pancake");
+		secondBook = bookRepository.saveBook(secondBook);
 		thirdBook = new BookEntity("How to survice in world");
-
+		thirdBook = bookRepository.saveBook(thirdBook);
 		firstAuthor.getBooks().add(firstBook);
 		secondAuthor.getBooks().add(secondBook);
 		thirdAuthor.getBooks().add(thirdBook);
@@ -221,7 +235,51 @@ public class App {
 		secondAuthor = authorRepository.saveAuthor(secondAuthor);
 		thirdAuthor = authorRepository.saveAuthor(thirdAuthor);
 
+		firstAuthor.setName("Budi Waseso");
+		authorRepository.updateAuthor(firstAuthor);
+		firstAuthor = authorRepository.findById(firstAuthor.getId());
+		authorRepository.deleteAuthor(secondAuthor);
 		authorRepository.deleteAuthor(firstAuthor);
+		authorRepository.deleteAuthor(thirdAuthor);
+		bookRepository.deleteBook(secondBook);
+		bookRepository.deleteBook(firstBook);
+		bookRepository.deleteBook(thirdBook);
 
+		/**
+		 * Many to Many Bidirectional SubjectEntity and StudentEntity varible.
+		 * SubjectEntity as owner side.
+		 */
+		subjectRepository = ctx.getBean(SubjectRepository.class);
+
+		firstStudent = new StudentEntity("TE1", "Anna", "wati");
+		secondStudent = new StudentEntity("TE3", "Heski", "Priska");
+		thirdStudent = new StudentEntity("IF4", "Inggrid", "Puty");
+
+		/* First subject has 3 student */
+		firstSubject = new SubjectEntity("Calculus");
+		firstStudent.getSubjects().add(firstSubject);
+		firstSubject.getStudents().add(firstStudent);
+		secondStudent.getSubjects().add(firstSubject);
+		firstSubject.getStudents().add(secondStudent);
+		thirdStudent.getSubjects().add(firstSubject);
+		firstSubject.getStudents().add(thirdStudent);
+
+		/* Second subject has 1 student */
+		secondSubject = new SubjectEntity("Algorithm");
+	    thirdStudent.getSubjects().add(secondSubject);
+	    secondSubject.getStudents().add(thirdStudent);
+
+		studentRepository.saveStudent(firstStudent);
+		studentRepository.saveStudent(secondStudent);
+		studentRepository.saveStudent(thirdStudent);
+
+		firstSubject = subjectRepository.saveSubject(firstSubject);
+		secondSubject = subjectRepository.saveSubject(secondSubject);
+		
+		subjectRepository.deleteSubject(firstSubject);
+		subjectRepository.deleteSubject(secondSubject);
+		studentRepository.deleteStudent(firstStudent);
+		studentRepository.deleteStudent(secondStudent);
+		studentRepository.deleteStudent(thirdStudent);
 	}
 }

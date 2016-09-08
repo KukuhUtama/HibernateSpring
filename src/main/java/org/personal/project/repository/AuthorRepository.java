@@ -24,4 +24,21 @@ public interface AuthorRepository {
 	 *            the author
 	 */
 	public void deleteAuthor(AuthorEntity author);
+
+	/**
+	 * Update author.
+	 *
+	 * @param author
+	 *            the author
+	 */
+	public void updateAuthor(AuthorEntity author);
+
+	/**
+	 * Find by id.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the author entity
+	 */
+	public AuthorEntity findById(int id);
 }

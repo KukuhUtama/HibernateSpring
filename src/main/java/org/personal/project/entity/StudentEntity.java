@@ -1,13 +1,19 @@
 package org.personal.project.entity;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 
 /**
@@ -37,6 +43,10 @@ public class StudentEntity extends BaseEntity implements Serializable {
 	/** The last name. */
 	@Column(name = "last_name")
 	private String lastName;
+	
+	/** The subjects. */
+	@ManyToMany(mappedBy="students")
+	private List<SubjectEntity> subjects = new LinkedList<SubjectEntity>();
 
 	/**
 	 * Instantiates a new student entity.
@@ -130,5 +140,26 @@ public class StudentEntity extends BaseEntity implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+
+	/**
+	 * Gets the subjects.
+	 *
+	 * @return the subjects
+	 */
+	public List<SubjectEntity> getSubjects() {
+		return subjects;
+	}
+
+	/**
+	 * Sets the subjects.
+	 *
+	 * @param subjects the new subjects
+	 */
+	public void setSubjects(List<SubjectEntity> subjects) {
+		this.subjects = subjects;
+	}
+
+	
 
 }

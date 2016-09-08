@@ -31,7 +31,7 @@ public class BookRepositoryImpl extends AbstractRepository implements BookReposi
 	 * project.entity.BookEntity)
 	 */
 	@Transactional
-	public BookEntity saveBook(BookEntity boook) {
+	public BookEntity saveBook(BookEntity book) {
 		try {
 			book = (BookEntity) persist(book);
 		} catch (Exception ex) {
@@ -88,6 +88,22 @@ public class BookRepositoryImpl extends AbstractRepository implements BookReposi
 			ex.printStackTrace();
 		}
 		return book;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.BookRepository#deleteBook(org.personal.
+	 * project.entity.BookEntity)
+	 */
+	@Transactional
+	public void deleteBook(BookEntity book) {
+		try {
+			delete(book);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }

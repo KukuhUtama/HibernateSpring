@@ -36,7 +36,7 @@ public class AuthorEntity extends BaseEntity implements Serializable {
 	private String name;
 
 	/** The authors. */
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	private List<BookEntity> books = new ArrayList<BookEntity>();
 
