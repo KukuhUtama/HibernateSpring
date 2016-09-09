@@ -40,7 +40,7 @@ public class DepartmentEntity extends BaseEntity implements Serializable {
 	private String departmentName;
 	
 	/** The lecturers. mappedBy = "department",*/
-	@OneToMany(mappedBy="department", cascade= CascadeType.ALL, fetch= FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy="department", cascade= CascadeType.ALL, fetch= FetchType.LAZY, orphanRemoval=true)
     private List<LecturerEntity> lecturers = new ArrayList<LecturerEntity>();
     
 	/**

@@ -23,4 +23,12 @@ public interface StudentRepository {
 	 *            the student
 	 */
 	public void deleteStudent(StudentEntity student);
+	
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @return the student entity
+	 */
+	public StudentEntity findById(int id);
 }

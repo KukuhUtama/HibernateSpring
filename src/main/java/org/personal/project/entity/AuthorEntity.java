@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class AuthorEntity extends BaseEntity implements Serializable {
 	private String name;
 
 	/** The authors. */
-	@ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST}, fetch=FetchType.LAZY)
 	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "author_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
 	private List<BookEntity> books = new ArrayList<BookEntity>();
 

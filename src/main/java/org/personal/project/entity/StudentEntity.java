@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class StudentEntity extends BaseEntity implements Serializable {
 	private String lastName;
 	
 	/** The subjects. */
-	@ManyToMany(mappedBy="students")
+	@ManyToMany(mappedBy="students", fetch=FetchType.EAGER)
 	private List<SubjectEntity> subjects = new LinkedList<SubjectEntity>();
 
 	/**

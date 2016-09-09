@@ -2,6 +2,7 @@ package org.personal.project.repository.impl;
 
 import java.io.Serializable;
 
+import org.hibernate.Hibernate;
 import org.personal.project.entity.DepartmentEntity;
 import org.personal.project.repository.AbstractRepository;
 import org.personal.project.repository.DepartmentRepository;
@@ -15,70 +16,74 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("departmentRepository")
 public class DepartmentRepositoryImpl extends AbstractRepository implements DepartmentRepository {
 
-	
 	/** The department. */
 	private DepartmentEntity department;
-	
+
 	/**
-	 *  (non-Javadoc).
+	 * (non-Javadoc).
 	 *
-	 * @param department the department
+	 * @param department
+	 *            the department
 	 * @return the department entity
 	 * @see org.personal.project.repository.DepartmentRepository#saveDepartment(org.personal.project.entity.DepartmentEntity)
 	 */
 	@Transactional
 	public DepartmentEntity saveDepartment(DepartmentEntity department) {
-		try{
+		try {
 			department = (DepartmentEntity) persist(department);
-		} catch(Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return department;
 	}
 
 	/**
-	 *  (non-Javadoc).
+	 * (non-Javadoc).
 	 *
-	 * @param department the department
+	 * @param department
+	 *            the department
 	 * @see org.personal.project.repository.DepartmentRepository#deleteDepartment(org.personal.project.entity.DepartmentEntity)
 	 */
 	@Transactional
 	public void deleteDepartment(DepartmentEntity department) {
-		try{
+		try {
 			delete(department);
-		} catch(Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 *  (non-Javadoc).
+	 * (non-Javadoc).
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the department entity
 	 * @see org.personal.project.repository.DepartmentRepository#loadDepartment(java.io.Serializable)
 	 */
 	@Transactional
-	public DepartmentEntity loadDepartment(Serializable id){
-		try{
+	public DepartmentEntity loadDepartment(Serializable id) {
+		try {
 			department = (DepartmentEntity) getSession().get(DepartmentEntity.class, id);
-		}catch(Exception ex){
+			Hibernate.initialize(department.getLecturers());
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return department;
 	}
 
 	/**
-	 *  (non-Javadoc).
+	 * (non-Javadoc).
 	 *
-	 * @param department the department
+	 * @param department
+	 *            the department
 	 * @see org.personal.project.repository.DepartmentRepository#updateDepartment(org.personal.project.entity.DepartmentEntity)
 	 */
 	@Transactional
-	public void updateDepartment(DepartmentEntity department){
-		try{
+	public void updateDepartment(DepartmentEntity department) {
+		try {
 			update(department);
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

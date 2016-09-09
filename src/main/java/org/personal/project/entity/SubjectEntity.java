@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
-
 
 /**
  * The Class SubjectEntity.
@@ -25,21 +25,22 @@ public class SubjectEntity extends BaseEntity implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6745498423536375515L;
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name= "id")
+	@Column(name = "id")
 	private int id;
-	
+
 	/** The name. */
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	
+
 	/** The students. */
-	@ManyToMany
-	@JoinTable(name="subject_student", joinColumns={@JoinColumn(name="subject_id")}, inverseJoinColumns={@JoinColumn(name="student_id")})
-	private List<StudentEntity> students= new LinkedList<StudentEntity>();
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "subject_student", joinColumns = { @JoinColumn(name = "subject_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "student_id") })
+	private List<StudentEntity> students = new LinkedList<StudentEntity>();
 
 	/**
 	 * Instantiates a new subject entity.
@@ -51,7 +52,8 @@ public class SubjectEntity extends BaseEntity implements Serializable {
 	/**
 	 * Instantiates a new subject entity.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
 	public SubjectEntity(String name) {
 		super();
@@ -79,7 +81,8 @@ public class SubjectEntity extends BaseEntity implements Serializable {
 	/**
 	 * Sets the name.
 	 *
-	 * @param name the new name
+	 * @param name
+	 *            the new name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -97,10 +100,11 @@ public class SubjectEntity extends BaseEntity implements Serializable {
 	/**
 	 * Sets the students.
 	 *
-	 * @param students the new students
+	 * @param students
+	 *            the new students
 	 */
 	public void setStudents(List<StudentEntity> students) {
 		this.students = students;
 	}
-    
+
 }

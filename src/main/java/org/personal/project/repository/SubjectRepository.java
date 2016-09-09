@@ -2,6 +2,7 @@ package org.personal.project.repository;
 
 import org.personal.project.entity.SubjectEntity;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface SubjectRepository.
  */
@@ -21,5 +22,13 @@ public interface SubjectRepository {
 	 * @param subject the subject
 	 */
 	public void deleteSubject(SubjectEntity subject);
+	
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @return the subject entity
+	 */
+	public SubjectEntity findById(int id);
 
 }

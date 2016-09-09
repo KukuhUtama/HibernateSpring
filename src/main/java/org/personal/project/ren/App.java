@@ -266,15 +266,28 @@ public class App {
 
 		/* Second subject has 1 student */
 		secondSubject = new SubjectEntity("Algorithm");
-	    thirdStudent.getSubjects().add(secondSubject);
-	    secondSubject.getStudents().add(thirdStudent);
+		thirdStudent.getSubjects().add(secondSubject);
+		secondSubject.getStudents().add(thirdStudent);
 
 		studentRepository.saveStudent(firstStudent);
 		studentRepository.saveStudent(secondStudent);
-		studentRepository.saveStudent(thirdStudent);
+		thirdStudent = studentRepository.saveStudent(thirdStudent);
 
 		firstSubject = subjectRepository.saveSubject(firstSubject);
 		secondSubject = subjectRepository.saveSubject(secondSubject);
+
+		System.out.println("Student of First Subject");
+		SubjectEntity first = subjectRepository.findById(firstSubject.getId());
+		for (StudentEntity element : first.getStudents()) {
+			System.out.println("Student: "+element.getFirstName()+" "+element.getLastName());
+		}
+        
+		System.out.println("Third Student has Subject");
+		StudentEntity third = studentRepository.findById(thirdStudent.getId());
+		for (SubjectEntity element : third.getSubjects()) {
+			System.out.println("Student: "+element.getName());
+		}
+		
 		
 		subjectRepository.deleteSubject(firstSubject);
 		subjectRepository.deleteSubject(secondSubject);
