@@ -31,8 +31,15 @@ public class LecturerEntity extends BaseEntity implements Serializable{
 	@Column(name="lecturer_name")
 	private String lecturerName;
 	
-	/** The department.*/
+	/** The lecturer code. */
+	@Column(name="lecturer_code")
+	private String lecturerCode;
 	
+	/** The contact phone. */
+	@Column(name="contact_phone")
+	private String contactPhone;
+	
+	/** The department.*/
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "department_id")
 	private DepartmentEntity department;
@@ -48,10 +55,13 @@ public class LecturerEntity extends BaseEntity implements Serializable{
 	 * Instantiates a new lecturer.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerCode the lecturer code
 	 */
-	public LecturerEntity(String lecturerName) {
+	public LecturerEntity(String lecturerName, String lecturerCode, String contactPhone) {
 		super();
 		this.lecturerName = lecturerName;
+		this.lecturerCode = lecturerCode;
+		this.contactPhone = contactPhone;
 	}
 
 	/**
@@ -80,6 +90,44 @@ public class LecturerEntity extends BaseEntity implements Serializable{
 	public void setLecturerName(String lecturerName) {
 		this.lecturerName = lecturerName;
 	}
+	
+	
+
+	/**
+	 * Gets the contact phone.
+	 *
+	 * @return the contact phone
+	 */
+	public String getContactPhone() {
+		return contactPhone;
+	}
+
+	/**
+	 * Sets the contact phone.
+	 *
+	 * @param contactPhone the new contact phone
+	 */
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
+
+	/**
+	 * Gets the lecturer code.
+	 *
+	 * @return the lecturer code
+	 */
+	public String getLecturerCode() {
+		return lecturerCode;
+	}
+
+	/**
+	 * Sets the lecturer code.
+	 *
+	 * @param lecturerCode the new lecturer code
+	 */
+	public void setLecturerCode(String lecturerCode) {
+		this.lecturerCode = lecturerCode;
+	}
 
 	/**
 	 * Gets the departemnt.
@@ -93,7 +141,7 @@ public class LecturerEntity extends BaseEntity implements Serializable{
 	/**
 	 * Sets the department.
 	 *
-	 * @param departement the new department
+	 * @param department the new department
 	 */
 	public void setDepartment(DepartmentEntity department) {
 		this.department = department;

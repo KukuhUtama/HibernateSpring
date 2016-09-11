@@ -39,8 +39,11 @@ public class App {
 	public static BankAccountEntity secondBankAccount;
 	public static BankAccountEntity thirdBankAccount;
 	public static List<BankAccountEntity> bankAccounts;
+	public static List<CustomerEntity> customers;
+	public static List<String> contactNumbers;
 	public static CustomerEntity firstCustomer;
 	public static CustomerEntity secondCustomer;
+	public static CustomerEntity customer;
 
 	/**
 	 * 
@@ -61,6 +64,7 @@ public class App {
 	public static DepartmentEntity departmentFirst, departmentSecond;
 	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth;
 	public static List<LecturerEntity> lecturerList;
+	public static List<Object[]> queryResult;
 
 	/**
 	 * Many to Many Unidirectional AuthorEntity and BookEntity varible
@@ -92,8 +96,9 @@ public class App {
 		customerRepository = ctx.getBean(CustomerRepository.class);
 
 		firstCustomer = new CustomerEntity("Kukuh", "Utama", "Klaten", "021-34556");
-		secondCustomer = new CustomerEntity("Fitria", "Utami", "Klaten", "021-34556");
+		secondCustomer = new CustomerEntity("Fitria", "Utami", "Klaten", "021-55555");
 		firstCustomer = customerRepository.saveCustomer(firstCustomer);
+		secondCustomer = customerRepository.saveCustomer(secondCustomer);
 
 		firstBankAccount = new BankAccountEntity("ACC-01", 1000);
 		firstBankAccount.setCustomer(firstCustomer);
@@ -105,6 +110,21 @@ public class App {
 
 		thirdBankAccount = bankAccountRepository.findById(secondBankAccount.getId());
 		bankAccounts = bankAccountRepository.findAllBankAccount();
+		customers = customerRepository.findAllCustomer();
+		System.out.println("-----------------------------All Customer Order By Name-----------------------");
+		for (CustomerEntity element : customers) {
+			System.out.println("Full Name: " + element.getFirstName() + " " + element.getLastName());
+		}
+
+		customer = customerRepository.findByFirstName("Fitria");
+		System.out.println("-----------------------------Find Customer By Name-----------------------");
+		System.out.println("Full Name: " + customer.getFirstName() + " " + customer.getLastName());
+
+		contactNumbers = customerRepository.findAllContactNumberOnly();
+		System.out.println("-----------------------------All Contact Number-----------------------");
+		for (String element : contactNumbers) {
+			System.out.println("Contact Number: " + element);
+		}
 
 		bankAccountRepository.deleteBankAccount(firstBankAccount);
 		bankAccountRepository.deleteBankAccount(secondBankAccount);
@@ -160,16 +180,16 @@ public class App {
 
 		departmentFirst = new DepartmentEntity("Informatic Engineering");
 
-		List<LecturerEntity> lecturers = new ArrayList();
-		lecturerFirst = new LecturerEntity("Kukuh Utama");
+		List<LecturerEntity> lecturers = new ArrayList<LecturerEntity>();
+		lecturerFirst = new LecturerEntity("Kukuh Utama", "KKU", "0893333");
 		lecturerFirst.setDepartment(departmentFirst);
 		lecturers.add(lecturerFirst);
 
-		lecturerSecond = new LecturerEntity("Shinta Putri");
+		lecturerSecond = new LecturerEntity("Shinta Putri", "SHP", "08972222");
 		lecturerSecond.setDepartment(departmentFirst);
 		lecturers.add(lecturerSecond);
 
-		lecturerThird = new LecturerEntity("Joko Pri");
+		lecturerThird = new LecturerEntity("Joko Pri", "JKP", "09383938");
 		lecturerThird.setDepartment(departmentFirst);
 		lecturers.add(lecturerThird);
 
@@ -189,13 +209,20 @@ public class App {
 		departmentSecond = new DepartmentEntity("Electrical Engineering");
 		departmentSecond = departmentRepository.saveDepartment(departmentSecond);
 
-		lecturerFourth = new LecturerEntity("Wisanggeni Sakti");
+		lecturerFourth = new LecturerEntity("Wisanggeni Sakti", "WSS", "3030384");
 		lecturerFourth.setDepartment(departmentSecond);
 		lecturerFourth = lecturerRepository.saveLecturer(lecturerFourth);
 
-		lecturerFifth = new LecturerEntity("Fransisca W");
+		lecturerFifth = new LecturerEntity("Fransisca W", "FSW", "0383839");
 		lecturerFifth.setDepartment(departmentSecond);
 		lecturerFifth = lecturerRepository.saveLecturer(lecturerFifth);
+
+		queryResult = lecturerRepository.findAllLectureNanmeAndCode();
+		System.out.println("-----Find All Lecturer Name And Code-----");
+		for (Object[] element : queryResult) {
+			System.out.println("Lecturer Name: " + element[0]);
+			System.out.println("Lecturer Code: " + element[1]);
+		}
 
 		Serializable id = departmentSecond.getId();
 		departmentSecond = departmentRepository.loadDepartment(id);
@@ -210,7 +237,7 @@ public class App {
 		departmentRepository.deleteDepartment(departmentFirst);
 		departmentRepository.deleteDepartment(departmentSecond);
 
-		/*
+		/**
 		 * Many to Many Unidirectional AuthorEntity and BookEntity
 		 */
 		bookRepository = ctx.getBean(BookRepository.class);
@@ -279,16 +306,15 @@ public class App {
 		System.out.println("Student of First Subject");
 		SubjectEntity first = subjectRepository.findById(firstSubject.getId());
 		for (StudentEntity element : first.getStudents()) {
-			System.out.println("Student: "+element.getFirstName()+" "+element.getLastName());
+			System.out.println("Student: " + element.getFirstName() + " " + element.getLastName());
 		}
-        
+
 		System.out.println("Third Student has Subject");
 		StudentEntity third = studentRepository.findById(thirdStudent.getId());
 		for (SubjectEntity element : third.getSubjects()) {
-			System.out.println("Student: "+element.getName());
+			System.out.println("Student: " + element.getName());
 		}
-		
-		
+
 		subjectRepository.deleteSubject(firstSubject);
 		subjectRepository.deleteSubject(secondSubject);
 		studentRepository.deleteStudent(firstStudent);

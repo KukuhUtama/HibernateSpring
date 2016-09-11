@@ -1,5 +1,7 @@
 package org.personal.project.repository;
 
+import java.util.List;
+
 import org.personal.project.entity.LecturerEntity;
 
 // TODO: Auto-generated Javadoc
@@ -22,5 +24,12 @@ public interface LecturerRepository {
 	 * @param lecturer the lecturer
 	 */
 	public void deleteLecturer(LecturerEntity lecturer);
+	
+	/**
+	 * Find all lecture nanme and code.
+	 *
+	 * @return the list
+	 */
+	public List<Object[]> findAllLectureNanmeAndCode();
 	
 }

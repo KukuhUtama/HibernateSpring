@@ -1,11 +1,18 @@
 package org.personal.project.repository.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Query;
+import org.hibernate.transform.Transformers;
 import org.personal.project.entity.CustomerEntity;
 import org.personal.project.repository.AbstractRepository;
 import org.personal.project.repository.CustomerRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CustomerRepositoryImpl.
  */
@@ -15,7 +22,21 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 	/** The customer. */
 	private CustomerEntity customer;
 
-	/** (non-Javadoc)
+	/** The hql query. */
+	private String hqlQuery;
+
+	/** The query. */
+	private Query query;
+
+	/** The customers. */
+	private List<CustomerEntity> customers = new ArrayList<CustomerEntity>();
+
+	/**
+	 * (non-Javadoc).
+	 *
+	 * @param customer
+	 *            the customer
+	 * @return the customer entity
 	 * @see org.personal.project.repository.CustomerRepository#saveCustomer(org.personal.project.entity.CustomerEntity)
 	 */
 	@Transactional
@@ -28,7 +49,11 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 		return customer;
 	}
 
-	/** (non-Javadoc)
+	/**
+	 * (non-Javadoc).
+	 *
+	 * @param customer
+	 *            the customer
 	 * @see org.personal.project.repository.CustomerRepository#deleteCustomer(org.personal.project.entity.CustomerEntity)
 	 */
 	@Transactional
@@ -38,6 +63,72 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	/**
+	 * (non-Javadoc).
+	 *
+	 * @return the list
+	 * @see org.personal.project.repository.CustomerRepository#findAllCustomer()
+	 */
+	@Transactional
+	public List<CustomerEntity> findAllCustomer() {
+		hqlQuery = "from CustomerEntity order by firstName";
+		try {
+			customers = (List<CustomerEntity>) getSession().createQuery(hqlQuery).list();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return customers;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.CustomerRepository#findByFirstName(java.
+	 * lang.String)
+	 */
+	@Transactional
+	public CustomerEntity findByFirstName(String firstName) {
+		hqlQuery = "from CustomerEntity where firstName= :firstName";
+		try {
+			query = (Query) getSession().createQuery(hqlQuery);
+			query.setParameter("firstName", firstName);
+			customer = (CustomerEntity) query.uniqueResult();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return customer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.personal.project.repository.CustomerRepository#
+	 * findAllContactNumberOnly()
+	 */
+	@Transactional
+	public List<String> findAllContactNumberOnly() {
+		List<String> contactNumbers = new ArrayList<String>();
+		hqlQuery = "select contactNumber from CustomerEntity";
+		try {
+			contactNumbers = getSession().createQuery(hqlQuery).list();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return contactNumbers;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.personal.project.repository.CustomerRepository#
+	 * findAllFirstAndLastNameOnly()
+	 */
+	@Transactional
+	public Map findAllFirstAndLastNameOnly() {
+		return null;
 	}
 
 }

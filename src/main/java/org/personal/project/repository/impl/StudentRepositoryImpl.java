@@ -1,13 +1,10 @@
 package org.personal.project.repository.impl;
 
-import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.personal.project.entity.StudentEntity;
-import org.personal.project.entity.SubjectEntity;
 import org.personal.project.repository.AbstractRepository;
 import org.personal.project.repository.StudentRepository;
 import org.springframework.stereotype.Repository;
@@ -63,7 +60,8 @@ public class StudentRepositoryImpl extends AbstractRepository implements Student
 		try {
 			Criteria criteria = getSession().createCriteria(StudentEntity.class);
 			Criterion clause = Restrictions.eq("id", id);
-			criteria.add(clause).setFetchMode("subjects", FetchMode.EAGER);
+			criteria.add(clause).setFetchMode("subjects",
+					FetchMode.JOIN); /* Disable lazy fetch */
 			student = (StudentEntity) criteria.uniqueResult();
 		} catch (Exception ex) {
 			ex.printStackTrace();
