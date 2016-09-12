@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.personal.project.dto.LecturerProfileDto;
 import org.personal.project.entity.AuthorEntity;
 import org.personal.project.entity.BankAccountEntity;
 import org.personal.project.entity.BookEntity;
@@ -65,6 +66,7 @@ public class App {
 	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth;
 	public static List<LecturerEntity> lecturerList;
 	public static List<Object[]> queryResult;
+	public static List<LecturerProfileDto> lecturerProfiles;
 
 	/**
 	 * Many to Many Unidirectional AuthorEntity and BookEntity varible
@@ -222,6 +224,14 @@ public class App {
 		for (Object[] element : queryResult) {
 			System.out.println("Lecturer Name: " + element[0]);
 			System.out.println("Lecturer Code: " + element[1]);
+		}
+
+		System.out.println("-----Find All Lecturer Profile-----");
+		lecturerProfiles = lecturerRepository.findAllLecturerProfile();
+		for (LecturerProfileDto element : lecturerProfiles) {
+			System.out.println("Lecturer Name: " + element.getLecturerName());
+			System.out.println("Lecturer Code: " + element.getLecturerCode());
+			System.out.println("Department Name: " + element.getDepartmentName());
 		}
 
 		Serializable id = departmentSecond.getId();

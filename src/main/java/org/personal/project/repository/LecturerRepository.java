@@ -2,6 +2,7 @@ package org.personal.project.repository;
 
 import java.util.List;
 
+import org.personal.project.dto.LecturerProfileDto;
 import org.personal.project.entity.LecturerEntity;
 
 // TODO: Auto-generated Javadoc
@@ -31,5 +32,12 @@ public interface LecturerRepository {
 	 * @return the list
 	 */
 	public List<Object[]> findAllLectureNanmeAndCode();
+	
+	/**
+	 * Find all lecturer profile.
+	 *
+	 * @return the list
+	 */
+	public List<LecturerProfileDto> findAllLecturerProfile();
 	
 }
