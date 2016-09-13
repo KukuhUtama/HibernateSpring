@@ -7,7 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.personal.project.dto.AuthorProfileDto;
 import org.personal.project.dto.LecturerProfileDto;
+import org.personal.project.dto.StudentProfileDto;
 import org.personal.project.entity.AuthorEntity;
 import org.personal.project.entity.BankAccountEntity;
 import org.personal.project.entity.BookEntity;
@@ -76,6 +78,7 @@ public class App {
 	public static AuthorEntity firstAuthor, secondAuthor, thirdAuthor;
 	public static BookEntity firstBook, secondBook, thirdBook, fourthBook;
 	public static List<BookEntity> books;
+	public static List<AuthorProfileDto> authorProfiles;
 
 	/**
 	 * Many to Many Bidirectional SubjectEntity and StudentEntity varible.
@@ -85,6 +88,7 @@ public class App {
 	public static SubjectEntity firstSubject, secondSubject, thirdSubject;
 	public static List<SubjectEntity> firstSubjects, secondSubjects;
 	public static List<StudentEntity> firstStudents, secondStudents;
+	public static List<StudentProfileDto> studentProfiles;
 
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-application-context.xml");
@@ -267,10 +271,17 @@ public class App {
 		firstAuthor.getBooks().add(firstBook);
 		secondAuthor.getBooks().add(secondBook);
 		thirdAuthor.getBooks().add(thirdBook);
+		thirdAuthor.getBooks().add(firstBook);
 
 		firstAuthor = authorRepository.saveAuthor(firstAuthor);
 		secondAuthor = authorRepository.saveAuthor(secondAuthor);
 		thirdAuthor = authorRepository.saveAuthor(thirdAuthor);
+
+		System.out.println("-------------------Author Profile-------------------");
+		authorProfiles = authorRepository.findAllAuthorProfile();
+		for (AuthorProfileDto element : authorProfiles) {
+			System.out.println(element.getAuthorId() + " " + element.getAuthorName() + " " + element.getBookTitle());
+		}
 
 		firstAuthor.setName("Budi Waseso");
 		authorRepository.updateAuthor(firstAuthor);
@@ -323,6 +334,12 @@ public class App {
 		StudentEntity third = studentRepository.findById(thirdStudent.getId());
 		for (SubjectEntity element : third.getSubjects()) {
 			System.out.println("Student: " + element.getName());
+		}
+
+		System.out.println("-------------------Student Profile-------------------");
+		studentProfiles = studentRepository.findAllStudentProfile();
+		for (StudentProfileDto element : studentProfiles) {
+			System.out.println(element.getFirstName() + " " + element.getLastName() + " " + element.getSubjectName());
 		}
 
 		subjectRepository.deleteSubject(firstSubject);

@@ -1,5 +1,8 @@
 package org.personal.project.repository;
 
+import java.util.List;
+
+import org.personal.project.dto.AuthorProfileDto;
 import org.personal.project.entity.AuthorEntity;
 
 // TODO: Auto-generated Javadoc
@@ -41,4 +44,12 @@ public interface AuthorRepository {
 	 * @return the author entity
 	 */
 	public AuthorEntity findById(int id);
+	
+    
+	/**
+	 * Find all author profile.
+	 *
+	 * @return the list
+	 */
+	public List<AuthorProfileDto> findAllAuthorProfile();
 }

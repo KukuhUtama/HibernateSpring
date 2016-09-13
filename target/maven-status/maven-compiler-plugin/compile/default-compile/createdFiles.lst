@@ -4,7 +4,9 @@ org\personal\project\repository\UniversityRepository.class
 org\personal\project\entity\BookEntity.class
 org\personal\project\repository\impl\BankAccountRepositoryImpl.class
 org\personal\project\entity\DepartmentEntity.class
+org\personal\project\dto\AuthorProfileDto.class
 org\personal\project\dto\LecturerProfileDto.class
+org\personal\project\dto\StudentProfileDto.class
 org\personal\project\ren\App.class
 org\personal\project\entity\BaseEntity.class
 org\personal\project\entity\StudentEntity.class

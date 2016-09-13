@@ -1,7 +1,12 @@
 package org.personal.project.repository.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.personal.project.dto.AuthorProfileDto;
 import org.personal.project.entity.AuthorEntity;
 import org.personal.project.repository.AbstractRepository;
 import org.personal.project.repository.AuthorRepository;
@@ -17,6 +22,12 @@ public class AuthorRepositoryImpl extends AbstractRepository implements AuthorRe
 
 	/** The author. */
 	private AuthorEntity author;
+
+	/** The author profiles. */
+	private List<AuthorProfileDto> authorProfiles;
+
+	/** The hql query. */
+	private String hqlQuery;
 
 	/*
 	 * (non-Javadoc)
@@ -79,6 +90,24 @@ public class AuthorRepositoryImpl extends AbstractRepository implements AuthorRe
 			ex.printStackTrace();
 		}
 		return author;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.AuthorRepository#findAllAuthorProfile()
+	 */
+	@Transactional
+	public List<AuthorProfileDto> findAllAuthorProfile() {
+		hqlQuery = "select books.title as bookTitle, author.id as authorId, author.name as authorName from AuthorEntity author left join author.books books";
+		try {
+			authorProfiles = getSession().createQuery(hqlQuery)
+					.setResultTransformer(new AliasToBeanResultTransformer(AuthorProfileDto.class)).list();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return authorProfiles;
 	}
 
 }
