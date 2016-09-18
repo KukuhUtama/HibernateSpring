@@ -14,9 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
-/*
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;*/
 
 // TODO: Auto-generated Javadoc
 /**

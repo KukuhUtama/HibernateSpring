@@ -3,6 +3,8 @@ package org.personal.project.repository.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.personal.project.entity.BankAccountEntity;
 import org.personal.project.repository.AbstractRepository;
@@ -19,20 +21,28 @@ public class BankAccountRepositoryImpl extends AbstractRepository implements Ban
 
 	/** The bank account entities. */
 	private List<BankAccountEntity> bankAccountEntities;
-	
+
 	/** The bank account. */
 	private BankAccountEntity bankAccount;
 
-	/* (non-Javadoc)
-	 * @see org.personal.project.repository.BankAccountRepository#saveBankAccount(org.personal.project.entity.BankAccountEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.BankAccountRepository#saveBankAccount(org
+	 * .personal.project.entity.BankAccountEntity)
 	 */
 	@Transactional
 	public BankAccountEntity saveBankAccount(BankAccountEntity bankAccount) {
 		return (BankAccountEntity) persist(bankAccount);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.personal.project.repository.BankAccountRepository#deleteBankAccount(org.personal.project.entity.BankAccountEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.BankAccountRepository#deleteBankAccount(
+	 * org.personal.project.entity.BankAccountEntity)
 	 */
 	@Transactional
 	public void deleteBankAccount(BankAccountEntity bankAccount) {
@@ -43,8 +53,12 @@ public class BankAccountRepositoryImpl extends AbstractRepository implements Ban
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.personal.project.repository.BankAccountRepository#findAllBankAccount()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.personal.project.repository.BankAccountRepository#findAllBankAccount(
+	 * )
 	 */
 	@Transactional
 	public List<BankAccountEntity> findAllBankAccount() {
@@ -57,7 +71,9 @@ public class BankAccountRepositoryImpl extends AbstractRepository implements Ban
 		return bankAccountEntities;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.personal.project.repository.BankAccountRepository#findById(int)
 	 */
 	@Transactional

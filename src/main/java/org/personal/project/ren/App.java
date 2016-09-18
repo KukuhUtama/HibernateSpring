@@ -2,9 +2,11 @@ package org.personal.project.ren;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.personal.project.dto.AuthorProfileDto;
@@ -56,8 +58,11 @@ public class App {
 
 	public static UniversityRepository universityRepository;
 	public static StudentRepository studentRepository;
-	public static UniversityEntity university;
+	public static UniversityEntity university, secondUniversity, thirdUniversity, fourthUniversity;
 	public static StudentEntity firstStudent, secondStudent, thirdStudent;
+	public static List<UniversityEntity> universities;
+	public static Map<String, List<String>> orClause;
+	public static List<String> cities;
 
 	/**
 	 * One to Many Bidirectional DepartmentEntity and LecturerEntity variable
@@ -65,10 +70,12 @@ public class App {
 	public static DepartmentRepository departmentRepository;
 	public static LecturerRepository lecturerRepository;
 	public static DepartmentEntity departmentFirst, departmentSecond;
-	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth;
+	public static LecturerEntity lecturerFirst, lecturerSecond, lecturerThird, lecturerFourth, lecturerFifth,
+			lecturerSixth;
 	public static List<LecturerEntity> lecturerList;
 	public static List<Object[]> queryResult;
 	public static List<LecturerProfileDto> lecturerProfiles;
+	public static Map<String, String> andClause;
 
 	/**
 	 * Many to Many Unidirectional AuthorEntity and BookEntity varible
@@ -175,6 +182,43 @@ public class App {
 		university.setStudents(allStudent.subList(0, 1));
 		universityRepository.updateUniversity(university);
 		System.out.println("Student Number: " + university.getStudents().size());
+
+		universities = universityRepository.findUniversitiesByStudentName("Anna", "Mubitha");
+		System.out.println("Find Universities by particular student name");
+		for (UniversityEntity element : universities) {
+			System.out.println(element.getName());
+		}
+
+		secondUniversity = new UniversityEntity("Universitas Langlang Buana", "Bandung");
+		secondUniversity = universityRepository.saveUniversity(secondUniversity);
+
+		thirdUniversity = new UniversityEntity("IT Surabaya", "Surabaya");
+		thirdUniversity = universityRepository.saveUniversity(thirdUniversity);
+
+		fourthUniversity = new UniversityEntity("Undip", "Semarang");
+		fourthUniversity = universityRepository.saveUniversity(fourthUniversity);
+
+		universities = universityRepository.findUniversitiesByNameOrAddress("IT Telkom", "Surabaya");
+		System.out.println("Find Universities by name or address");
+		for (UniversityEntity element : universities) {
+			System.out.println(element.getName());
+		}
+
+		orClause = new HashMap<String, List<String>>();
+		cities = new ArrayList<String>();
+		cities.add("Surabaya");
+		cities.add("Semarang");
+		orClause.put("address", cities);
+
+		universities = universityRepository.findUniversitiesByCity(orClause);
+		System.out.println("Find Universities by city(s)");
+		for (UniversityEntity element : universities) {
+			System.out.println(element.getName());
+		}
+
+		universityRepository.deleteUniversity(secondUniversity);
+		universityRepository.deleteUniversity(thirdUniversity);
+		universityRepository.deleteUniversity(fourthUniversity);
 		universityRepository.deleteUniversity(university);
 
 		/*
@@ -238,6 +282,19 @@ public class App {
 			System.out.println("Department Name: " + element.getDepartmentName());
 		}
 
+		System.out.println("-----Find Lecturer By Name, Code and Department Name-----");
+		andClause = new HashMap<String, String>();
+		andClause.put("lecturerName", "Fransisca W");
+		andClause.put("lecturerCode", "FSW");
+		andClause.put("department.departmentName", "Electrical Engineering");
+		lecturerSixth = lecturerRepository.findLecturerByNameAndCodeAndDepartmentName(andClause);
+
+		if (lecturerSixth != null) {
+			System.out.println("Lecturer Name: " + lecturerSixth.getLecturerName());
+			System.out.println("Lecturer Code: " + lecturerSixth.getLecturerCode());
+			System.out.println("Department Name: " + lecturerSixth.getDepartment().getDepartmentName());
+		}
+
 		Serializable id = departmentSecond.getId();
 		departmentSecond = departmentRepository.loadDepartment(id);
 		lecturerList = departmentSecond.getLecturers();
@@ -254,6 +311,7 @@ public class App {
 		/**
 		 * Many to Many Unidirectional AuthorEntity and BookEntity
 		 */
+
 		bookRepository = ctx.getBean(BookRepository.class);
 		authorRepository = ctx.getBean(AuthorRepository.class);
 		books = new ArrayList<BookEntity>();
@@ -297,6 +355,7 @@ public class App {
 		 * Many to Many Bidirectional SubjectEntity and StudentEntity varible.
 		 * SubjectEntity as owner side.
 		 */
+
 		subjectRepository = ctx.getBean(SubjectRepository.class);
 
 		firstStudent = new StudentEntity("TE1", "Anna", "wati");
@@ -347,5 +406,6 @@ public class App {
 		studentRepository.deleteStudent(firstStudent);
 		studentRepository.deleteStudent(secondStudent);
 		studentRepository.deleteStudent(thirdStudent);
+
 	}
 }

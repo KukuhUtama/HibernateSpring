@@ -1,6 +1,7 @@
 package org.personal.project.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.personal.project.dto.LecturerProfileDto;
 import org.personal.project.entity.LecturerEntity;
@@ -39,5 +40,13 @@ public interface LecturerRepository {
 	 * @return the list
 	 */
 	public List<LecturerProfileDto> findAllLecturerProfile();
+	
+	/**
+	 * Find lecturer by name and code and department name.
+	 *
+	 * @param andClause the and clause
+	 * @return the lecturer entity
+	 */
+	public LecturerEntity findLecturerByNameAndCodeAndDepartmentName(Map<String,String> andClause);
 	
 }

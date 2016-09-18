@@ -120,15 +120,4 @@ public class CustomerRepositoryImpl extends AbstractRepository implements Custom
 		return contactNumbers;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.personal.project.repository.CustomerRepository#
-	 * findAllFirstAndLastNameOnly()
-	 */
-	@Transactional
-	public Map findAllFirstAndLastNameOnly() {
-		return null;
-	}
-
 }

@@ -1,7 +1,12 @@
 package org.personal.project.repository.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.personal.project.dto.LecturerProfileDto;
 import org.personal.project.entity.LecturerEntity;
@@ -28,6 +33,9 @@ public class LecturerRepostoryImpl extends AbstractRepository implements Lecture
 
 	/** The hql query. */
 	private String hqlQuery;
+
+	/** The criteria. */
+	private Criteria criteria;
 
 	/**
 	 * (non-Javadoc).
@@ -81,8 +89,9 @@ public class LecturerRepostoryImpl extends AbstractRepository implements Lecture
 	}
 
 	/**
-	 * (non-Javadoc)
-	 * 
+	 * (non-Javadoc).
+	 *
+	 * @return the list
 	 * @see org.personal.project.repository.LecturerRepository#findAllLecturerProfile()
 	 */
 	@Transactional
@@ -95,6 +104,28 @@ public class LecturerRepostoryImpl extends AbstractRepository implements Lecture
 
 		}
 		return lecturerProfiles;
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see org.personal.project.repository.LecturerRepository#findLecturerByNameAndCodeAndDepartmentName(java.util.Map)
+	 */
+	@Transactional
+	public LecturerEntity findLecturerByNameAndCodeAndDepartmentName(Map<String, String> andClause) {
+		Conjunction and;
+		try {
+			criteria = getSession().createCriteria(LecturerEntity.class).createAlias("department", "department");
+			and = Restrictions.conjunction();
+			for (Map.Entry<String, String> element : andClause.entrySet()) {
+				and.add(Restrictions.eq(element.getKey(), element.getValue()));
+			}
+			criteria.add(and);
+			lecturer = (LecturerEntity) criteria.uniqueResult();
+		} catch (Exception ex) {
+
+		}
+		return lecturer;
 	}
 
 }

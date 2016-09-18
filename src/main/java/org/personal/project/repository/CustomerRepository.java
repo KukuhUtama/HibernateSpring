@@ -51,10 +51,4 @@ public interface CustomerRepository {
 	 */
 	public List<String> findAllContactNumberOnly();
 
-	/**
-	 * Find all first and last name only.
-	 *
-	 * @return the map
-	 */
-	public Map findAllFirstAndLastNameOnly();
 }
