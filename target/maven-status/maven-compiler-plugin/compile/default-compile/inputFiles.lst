@@ -24,6 +24,7 @@ E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\reposi
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\StudentRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\DepartmentEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\dto\LecturerProfileDto.java
+E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\dto\UniversityProfileDto.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\SubjectEntity.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\repository\impl\DepartmentRepositoryImpl.java
 E:\Project\Private\SpringHibernate\ren\src\main\java\org\personal\project\entity\BaseEntity.java

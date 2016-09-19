@@ -12,6 +12,7 @@ import java.util.Set;
 import org.personal.project.dto.AuthorProfileDto;
 import org.personal.project.dto.LecturerProfileDto;
 import org.personal.project.dto.StudentProfileDto;
+import org.personal.project.dto.UniversityProfileDto;
 import org.personal.project.entity.AuthorEntity;
 import org.personal.project.entity.BankAccountEntity;
 import org.personal.project.entity.BookEntity;
@@ -63,6 +64,15 @@ public class App {
 	public static List<UniversityEntity> universities;
 	public static Map<String, List<String>> orClause;
 	public static List<String> cities;
+
+	/**
+	 * 
+	 * One to Many Unidirectional DepartmentEntity and UniversityEntity variable
+	 * with one side has relationship
+	 */
+	public static UniversityEntity universityFifth, universitySixth;
+	public static DepartmentEntity departmentThird, departmentFourth, departmentFifth;
+	public static List<UniversityProfileDto> universityProfiles;
 
 	/**
 	 * One to Many Bidirectional DepartmentEntity and LecturerEntity variable
@@ -308,6 +318,32 @@ public class App {
 		departmentRepository.deleteDepartment(departmentFirst);
 		departmentRepository.deleteDepartment(departmentSecond);
 
+		/**
+		 * One to Many Unidirectional UniversityEntity and DepartmentEntity
+		 * variable with one side has relationship.
+		 */
+		universityFifth = new UniversityEntity("ITB", "Bandung");
+		universitySixth = new UniversityEntity("UGM", "Yogyakarta");
+		
+		departmentThird = new DepartmentEntity("STIE");
+		departmentFourth = new DepartmentEntity("MIPA");
+		departmentFifth = new DepartmentEntity("ALIN");
+        
+		universityFifth.getDepartments().add(departmentThird);
+		universitySixth.getDepartments().add(departmentFourth);
+		universitySixth.getDepartments().add(departmentFifth);
+		
+		universityRepository.saveUniversity(universityFifth);
+		universityRepository.saveUniversity(universitySixth);
+		
+		universityProfiles = universityRepository.findAllUniversityProfile();
+		System.out.println("-----University Profile-----");
+		for(UniversityProfileDto element: universityProfiles){
+			System.out.println(element.getName()+" "+element.getAddress()+" "+element.getDepartmentName());
+		}
+		
+		universityRepository.deleteUniversity(universityFifth);
+		universityRepository.deleteUniversity(universitySixth);
 		/**
 		 * Many to Many Unidirectional AuthorEntity and BookEntity
 		 */

@@ -16,6 +16,7 @@ org\personal\project\entity\SubjectEntity.class
 org\personal\project\repository\StudentRepository.class
 org\personal\project\entity\BankAccountEntity.class
 org\personal\project\repository\impl\DepartmentRepositoryImpl.class
+org\personal\project\dto\UniversityProfileDto.class
 org\personal\project\entity\LecturerEntity.class
 org\personal\project\repository\BookRepository.class
 org\personal\project\entity\AuthorEntity.class

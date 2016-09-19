@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.personal.project.entity.UniversityEntity;
+import org.personal.project.dto.UniversityProfileDto;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -62,4 +63,11 @@ public interface UniversityRepository {
 	 * @return the list
 	 */
 	public List<UniversityEntity> findUniversitiesByCity(Map<String, List<String>> orClause);
+	
+	/**
+	 * Find all university profile.
+	 *
+	 * @return the list
+	 */
+	public List<UniversityProfileDto> findAllUniversityProfile();
 }

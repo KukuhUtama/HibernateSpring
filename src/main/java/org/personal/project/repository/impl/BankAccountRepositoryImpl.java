@@ -82,7 +82,6 @@ public class BankAccountRepositoryImpl extends AbstractRepository implements Ban
 			Criteria criteria = getSession().createCriteria(BankAccountEntity.class);
 			criteria.add(Restrictions.eq("id", id));
 			bankAccount = (BankAccountEntity) criteria.uniqueResult();
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

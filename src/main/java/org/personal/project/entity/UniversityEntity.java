@@ -1,6 +1,7 @@
 package org.personal.project.entity;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UniversityEntity.
  */
@@ -42,6 +44,12 @@ public class UniversityEntity extends BaseEntity implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.LAZY)
 	@JoinColumn(name = "university_id")
 	private List<StudentEntity> students;
+	
+
+	/** The departments. */
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="university_id")
+	private List<DepartmentEntity> departments = new LinkedList<DepartmentEntity>();
 
 	/**
 	 * Instantiates a new university entity.
@@ -115,5 +123,42 @@ public class UniversityEntity extends BaseEntity implements Serializable {
 	public void setStudents(List<StudentEntity> students) {
 		this.students = students;
 	}
+	
+	/**
+	 * Gets the address.
+	 *
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * Sets the address.
+	 *
+	 * @param address the new address
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * Gets the departments.
+	 *
+	 * @return the departments
+	 */
+	public List<DepartmentEntity> getDepartments() {
+		return departments;
+	}
+
+	/**
+	 * Sets the departments.
+	 *
+	 * @param departments the new departments
+	 */
+	public void setDepartments(List<DepartmentEntity> departments) {
+		this.departments = departments;
+	}
+
 
 }

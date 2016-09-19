@@ -6,7 +6,12 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
+import org.hibernate.transform.ResultTransformer;
+import org.hibernate.transform.Transformers;
+import org.personal.project.dto.UniversityProfileDto;
 import org.personal.project.entity.UniversityEntity;
 import org.personal.project.repository.AbstractRepository;
 import org.personal.project.repository.UniversityRepository;
@@ -25,6 +30,9 @@ public class UniversityRepositoryImpl extends AbstractRepository implements Univ
 
 	/** The universities. */
 	private List<UniversityEntity> universities;
+
+	/** The university profiles. */
+	private List<UniversityProfileDto> universityProfiles;
 
 	/** The criteria. */
 	private Criteria criteria;
@@ -136,8 +144,11 @@ public class UniversityRepositoryImpl extends AbstractRepository implements Univ
 	}
 
 	/**
-	 * (non-Javadoc)
-	 * 
+	 * (non-Javadoc).
+	 *
+	 * @param orClause
+	 *            the or clause
+	 * @return the list
 	 * @see org.personal.project.repository.UniversityRepository#findUniversitiesByCity(java.util.Map)
 	 */
 	@Transactional
@@ -161,6 +172,29 @@ public class UniversityRepositoryImpl extends AbstractRepository implements Univ
 			ex.printStackTrace();
 		}
 		return universities;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.personal.project.repository.UniversityRepository#
+	 * findAllUniversityProfile()
+	 */
+	@Transactional
+	public List<UniversityProfileDto> findAllUniversityProfile() {
+		try {
+			criteria = getSession().createCriteria(UniversityEntity.class, "university")
+					.createAlias("university.departments", "department", JoinType.LEFT_OUTER_JOIN)
+					.setProjection(Projections.projectionList().add(Projections.property("name"), "name")
+							.add(Projections.property("address"), "address")
+							.add(Projections.property("department.departmentName"), "departmentName"))
+					.setResultTransformer(Transformers.aliasToBean(UniversityProfileDto.class));
+			universityProfiles = criteria.list();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return universityProfiles;
 	}
 
 }
